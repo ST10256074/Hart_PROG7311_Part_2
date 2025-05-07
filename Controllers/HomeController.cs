@@ -18,6 +18,17 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult LoginUser(LoginModel l)
+        {
+            // Check details are correct then act
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Privacy()
         {
             return View();

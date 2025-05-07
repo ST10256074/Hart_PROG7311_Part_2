@@ -26,5 +26,6 @@ namespace Hart_PROG7311_Part_2.Data
         {
 
         }
+        public DbSet<Hart_PROG7311_Part_2.Models.LoginModel> LoginModel { get; set; } = default!;
     }
 }

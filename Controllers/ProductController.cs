@@ -12,13 +12,32 @@ namespace Hart_PROG7311_Part_2.Controllers
         // GET: ProductController
         public ActionResult Index()
         {
-            return View();
+            List<ProductModel> products = new List<ProductModel>();
+            try
+            {
+                products = pr.FetchProducts();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return View(products);
         }
 
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ProductModel model = new ProductModel();
+            try
+            {
+                model = pr.FetchProductByID(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return View(model);
         }
 
         // GET: ProductController/Create
@@ -27,24 +46,27 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View();
         }
 
-        public ActionResult Create(ProductModel p)
-        {
-            pr.Create(p);
-            return Index();
-        }
+        //public ActionResult Create(ProductModel p)
+        //{
+        //    pr.Create(p);
+        //    return Index();
+        //}
 
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateProduct(ProductModel p)
         {
             try
             {
+                //ProductModel model = new ProductModel();
+                //model.
+                pr.Create(p);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 

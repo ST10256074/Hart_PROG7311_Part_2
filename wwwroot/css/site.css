@@ -20,3 +20,58 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+    .hero-section {
+        padding: 6rem 0;
+        background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .mission-section {
+        padding: 5rem 0;
+    }
+
+    .feature-card {
+        transition: transform 0.3s;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+    .step-card {
+        padding: 2rem 1rem;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    .cta-section {
+        padding: 4rem 0;
+    }
+
+    .landing-page h1,
+    .landing-page h2,
+    .landing-page h3 {
+        font-weight: 600;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+

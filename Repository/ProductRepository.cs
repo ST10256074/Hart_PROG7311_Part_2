@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Hart_PROG7311_Part_2.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hart_PROG7311_Part_2.Repository
 {
@@ -22,7 +23,8 @@ namespace Hart_PROG7311_Part_2.Repository
             //{
             //    Console.WriteLine(e);
             //}
-            var products = new List<ProductModel>();
+            using AppDbContext db = new AppDbContext();
+            List<ProductModel> products = db.Products.ToList();
             return products;
         }
 
@@ -38,6 +40,21 @@ namespace Hart_PROG7311_Part_2.Repository
             {
                 Console.WriteLine(e);
             }
+        }
+
+        public ProductModel FetchProductByID(int id)
+        {
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                ProductModel product = (ProductModel) db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
+                return product;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex);
+                return null;
+            } 
         }
     }
 }

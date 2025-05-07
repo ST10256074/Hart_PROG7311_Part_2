@@ -1,8 +1,131 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    
 }
+<div class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero-section text-center py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 mb-4">AgriEnergy Platform</h1>
+                    <p class="lead mb-5">Connecting Sustainable Agriculture and Renewable Energy</p>
+                    <div class="cta-buttons">
+                        <a href="/Home/Login" class="btn btn-success btn-lg mr-3">I'm a Farmer</a>
+                        <a href="/Home/Login" class="btn btn-primary btn-lg mr-3">I'm a Employee</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <!-- Mission Section -->
+    <section class="mission-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4">Our Collaborative Mission</h2>
+                    <div class="mission-statement">
+                        <p class="lead">
+                            AgriEnergy Nexus creates a digital ecosystem where farmers, green energy experts,
+                            and sustainability enthusiasts collaborate to innovate at the intersection of
+                            agriculture and renewable energy.
+                        </p>
+                        <p>
+                            We facilitate knowledge sharing, resource matching, and joint projects that
+                            advance sustainable food production while reducing carbon footprints through
+                            integrated energy solutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration Areas -->
+    <section class="features-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Collaboration Opportunities</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card card h-100 border-success">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3 text-success">
+                                <i class="fas fa-solar-panel fa-3x"></i>
+                            </div>
+                            <h3>Farm Energy Solutions</h3>
+                            <p>Match farmers with energy experts to implement solar, wind, and bioenergy systems tailored to agricultural operations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card card h-100 border-primary">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3 text-primary">
+                                <i class="fas fa-seedling fa-3x"></i>
+                            </div>
+                            <h3>Sustainable Practices</h3>
+                            <p>Share regenerative agriculture techniques that work in harmony with renewable energy installations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card card h-100 border-info">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3 text-info">
+                                <i class="fas fa-project-diagram fa-3x"></i>
+                            </div>
+                            <h3>Innovation Projects</h3>
+                            <p>Connect multidisciplinary teams to develop new technologies at the agriculture-energy nexus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">How Our Ecosystem Works</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">1</div>
+                        <h4>Create Profile</h4>
+                        <p>Identify yourself as a farmer, energy expert, researcher, or enthusiast</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">2</div>
+                        <h4>Share Needs/Expertise</h4>
+                        <p>Describe your challenges, resources, or specialized knowledge</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">3</div>
+                        <h4>Find Matches</h4>
+                        <p>Our system connects complementary profiles</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-number">4</div>
+                        <h4>Collaborate</h4>
+                        <p>Use our tools to communicate and manage projects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section py-5 bg-success text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to join the AgriEnergy revolution?</h2>
+            <a href="/signup" class="btn btn-light btn-lg">Get Started Now</a>
+        </div>
+    </section>
 </div>
