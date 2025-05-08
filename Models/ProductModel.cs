@@ -17,7 +17,7 @@ namespace Hart_PROG7311_Part_2.Models
         public float Price { get; set; }
         public float Volume { get; set; }
         public DateTime ListedAt { get; set; }
-        public DateTime CreatedAt {  get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public ProductModel()
         {

@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Hart_PROG7311_Part_2.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {

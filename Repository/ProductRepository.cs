@@ -1,8 +1,6 @@
 ﻿using Hart_PROG7311_Part_2.Data;
-using System.Security.Claims;
 using Hart_PROG7311_Part_2.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Hart_PROG7311_Part_2.Repository
 {
@@ -28,7 +26,7 @@ namespace Hart_PROG7311_Part_2.Repository
             return products;
         }
 
-        public void Create(ProductModel p )
+        public void Create(ProductModel p)
         {
             try
             {
@@ -42,19 +40,48 @@ namespace Hart_PROG7311_Part_2.Repository
             }
         }
 
+        public void Update(ProductModel p) {
+
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                db.Products.Update(p);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
         public ProductModel FetchProductByID(int id)
         {
             try
             {
                 using AppDbContext db = new AppDbContext();
-                ProductModel product = (ProductModel) db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
+                ProductModel product = (ProductModel)db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
                 return product;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 return null;
-            } 
+            }
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                ProductModel product = (ProductModel)db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Hart_PROG7311_Part_2.Models;
 using Hart_PROG7311_Part_2.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hart_PROG7311_Part_2.Controllers
@@ -73,16 +72,27 @@ namespace Hart_PROG7311_Part_2.Controllers
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            // Fetch Model to assign to Text Boxes
+            ProductModel model = new ProductModel();
+            try
+            {
+                model = pr.FetchProductByID(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return View(model);
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ProductModel p)
         {
             try
             {
+                pr.Update(p);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -94,7 +104,16 @@ namespace Hart_PROG7311_Part_2.Controllers
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            // Delete Product After warning
+            try
+            {
+                pr.Delete(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: ProductController/Delete/5
