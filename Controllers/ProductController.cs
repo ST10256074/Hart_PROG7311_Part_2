@@ -1,9 +1,13 @@
 ﻿using Hart_PROG7311_Part_2.Models;
 using Hart_PROG7311_Part_2.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
+    //[Authorize]
+    //[Authorize(Policy = "Employee")]
+    //[Authorize(Roles = "Employee")]
     public class ProductController : Controller
     {
         ProductRepository pr = new ProductRepository();

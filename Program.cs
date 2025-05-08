@@ -1,5 +1,7 @@
 using Hart_PROG7311_Part_2.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Hart_PROG7311_Part_2
 {
@@ -19,21 +21,26 @@ namespace Hart_PROG7311_Part_2
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
-            //
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Insert Dummy data
-            // This would be the Admin/Employee Login
-            // Some Farmers and some diverse products
+            // On Program First Run Seed data into database
+            AppDbContext db = new AppDbContext();
+            var check = db.Employees.ToList();
+            if (check.Count == 0)
+            {
+                db.Employees.Add(new Models.EmployeeModel("Admin","admin","admin","123 Jackson Street","nowhere","0000000000"));
+            }
+
+            db.SaveChanges();
 
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
+                var db2 = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db2.Database.Migrate();
             }
 
             // Configure the HTTP request pipeline.
@@ -47,9 +54,13 @@ namespace Hart_PROG7311_Part_2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            //Sessions
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.MapControllerRoute(
                 name: "default",

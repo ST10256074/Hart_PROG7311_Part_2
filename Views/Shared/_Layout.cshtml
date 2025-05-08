@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,16 +29,32 @@
                 @* } *@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+@*                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        </li> *@
                         @* <li class="nav-item"> *@
                         @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
                         @* </li> *@
                         @*Employee view all products*@
-                        <li class="nav-item"> 
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
-                        </li>
+
+
+                        @if(@HttpContextAccessor.HttpContext.Session.GetInt32("ID") == null)
+                        {
+                            <li class="nav-item" style="margin-right: 0; margin-left: auto;">   
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>      
+                            <img src="~/images/user.svg" alt="User" />
+                        }
+                        else
+                        {
+                            <li class="nav-item"> 
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                            </li>
+                            <li class="nav-item" style="margin-right: 0; margin-left: auto;">   
+                            <a class="nav-link text-dark" asp-area="" >@HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
+                            </li>    
+                            <img src="~/images/user.svg" alt="User" />
+                        }
                     </ul>
                 </div>
             </div>

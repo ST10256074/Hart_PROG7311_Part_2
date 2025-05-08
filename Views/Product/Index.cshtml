@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel>
 
 @{
+    var claims = this.ViewContext.HttpContext.User.Claims.ToList();
+
     ViewData["Title"] = "View";
 }
 

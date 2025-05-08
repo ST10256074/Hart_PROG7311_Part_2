@@ -13,5 +13,17 @@ namespace Hart_PROG7311_Part_2.Models
         public string ProfilePicture { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreateedAt { get; set; }
+        public EmployeeModel() { }
+
+        public EmployeeModel(string name, string username, string password, string address, string profilePicture, string phoneNumber)
+        {
+            Name = name;
+            Username = username;
+            Password = password;
+            Address = address;
+            ProfilePicture = profilePicture;
+            PhoneNumber = phoneNumber;
+            CreateedAt = DateTime.Now;
+        }
     }
 }

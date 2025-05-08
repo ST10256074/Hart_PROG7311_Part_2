@@ -1,12 +1,19 @@
 using Hart_PROG7311_Part_2.Models;
+using Hart_PROG7311_Part_2.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        EmployeeRepository er = new EmployeeRepository();
+        FarmerRepository fr = new FarmerRepository();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -23,10 +30,30 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View();
         }
 
-        public IActionResult LoginUser(LoginModel l)
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginModel l)
         {
-            // Check details are correct then act
-            return RedirectToAction(nameof(Index));
+            // Using the EmployeeRepository to check if the user exists
+            var employee = er.Get(l.Username, l.Password);
+            if (employee != null)
+            {
+                HttpContext.Session.SetString("Username", employee.Username.ToString());
+                HttpContext.Session.SetInt32("ID", employee.EmployeeModelID);
+                HttpContext.Session.SetString("UserType", "Employee");
+                return RedirectToAction("Index", "Product");
+            }
+
+            var farmer = fr.Get(l.Username, l.Password);
+            if (farmer != null)
+            {
+                HttpContext.Session.SetString("Username", farmer.Username.ToString());
+                HttpContext.Session.SetInt32("ID", farmer.FarmerModelID);
+                HttpContext.Session.SetString("UserType", "Farmer");
+                return RedirectToAction("Index", "Product");
+            }
+            // If the user does not exist, return to the Login view with an error message
+            ModelState.AddModelError("", "Invalid username or password.");
+            return View("Login");
         }
 
         public IActionResult Privacy()
