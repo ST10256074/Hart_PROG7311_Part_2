@@ -20,24 +20,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @* @if(){ *@
-                @*     // If signed in as Farmer *@
-                @* } else if(){ *@
-                @*     // If signed in as Employee *@
-                @* } else if(){ *@
-                @*     // If not signed in *@
-                @* } *@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-@*                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li> *@
-                        @* <li class="nav-item"> *@
-                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-                        @* </li> *@
-                        @*Employee view all products*@
-
-
                         @if(@HttpContextAccessor.HttpContext.Session.GetInt32("ID") == null)
                         {
                             <li class="nav-item" style="margin-right: 0; margin-left: auto;">   
@@ -45,18 +29,36 @@
                             </li>      
                             <img src="~/images/user.svg" alt="User" />
                         }
-                        else
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserType") == "Employee")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Farmer" asp-action="Index">Farmers</a>
                             </li>
-                            <li class="nav-item"> 
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                             </li>
-                            <li class="nav-item" style="margin-right: 0; margin-left: auto;">   
-                            <a class="nav-link text-dark" asp-area="" >@HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
-                            </li>    
-                            <img src="~/images/user.svg" alt="User" />
+                            <li class="nav-item" style="margin-right: 0; margin-left: auto;">
+                                <a class="nav-link text-dark">@HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
+                            </li>
+                            <li class="nav-item" style="display: block;margin: auto;margin-right: 0px;margin-left: 0px;">
+                                <a asp-area="" asp-controller="Home" asp-action="Logout">
+                                    <img src="~/images/log-out.svg" alt="User" />
+                                </a>
+                            </li>
+                        }
+                        else if (HttpContextAccessor.HttpContext.Session.GetString("UserType") == "Farmer")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="FarmerIndex" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetInt32("ID")">Products</a>
+                            </li>
+                            <li class="nav-item" style="margin-right: 0; margin-left: auto;">
+                                <a class="nav-link text-dark">@HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
+                            </li>
+                            <li class="nav-item" style="display: block;margin: auto;margin-right: 0px;margin-left: 0px;">
+                                <a asp-area="" asp-controller="Home" asp-action="Logout">
+                                    <img src="~/images/log-out.svg" alt="User" />
+                                </a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -71,7 +73,7 @@
 
     <footer class="border-top footer text-muted HeaderFooter">
         <div class="container">
-            &copy; 2025 - Hart_PROG7311_Part_2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - Hart_PROG7311_Part_2
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

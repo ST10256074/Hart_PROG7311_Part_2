@@ -12,14 +12,38 @@ namespace Hart_PROG7311_Part_2.Controllers
     {
         ProductRepository pr = new ProductRepository();
 
-        // GET: ProductController
+        [HttpGet]
         public ActionResult Index()
         {
             List<ProductModel> products = new List<ProductModel>();
             try
             {
                 products = pr.FetchProducts();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return View(products);
+        }
 
+        [HttpGet]
+        public ActionResult FarmerIndex(int id)
+        {
+            List<ProductModel> products = new List<ProductModel>();
+            try
+            {
+                // get ID variable from session
+                if (HttpContext.Session.GetString("UserType") == "Employee")
+                {
+                    // If employee
+                    products = pr.FetchProductsByFarmerID((int) id);
+                }
+                else
+                {
+                    id = (int) HttpContext.Session.GetInt32("ID");
+                }
+                products = pr.FetchProductsByFarmerID((int) id);
             }
             catch (Exception ex)
             {
@@ -49,12 +73,6 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View();
         }
 
-        //public ActionResult Create(ProductModel p)
-        //{
-        //    pr.Create(p);
-        //    return Index();
-        //}
-
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,14 +80,21 @@ namespace Hart_PROG7311_Part_2.Controllers
         {
             try
             {
-                //ProductModel model = new ProductModel();
-                //model.
                 pr.Create(p);
-                return RedirectToAction(nameof(Index));
+                if (HttpContext.Session.GetString("UserType") == "Employee")
+                {
+                    // If employee
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // If farmer
+                    return RedirectToAction(nameof(FarmerIndex));
+                }
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToPage("Home");
             }
         }
 

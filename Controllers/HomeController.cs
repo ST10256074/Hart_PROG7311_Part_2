@@ -49,11 +49,17 @@ namespace Hart_PROG7311_Part_2.Controllers
                 HttpContext.Session.SetString("Username", farmer.Username.ToString());
                 HttpContext.Session.SetInt32("ID", farmer.FarmerModelID);
                 HttpContext.Session.SetString("UserType", "Farmer");
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("FarmerIndex", "Product");
             }
             // If the user does not exist, return to the Login view with an error message
             ModelState.AddModelError("", "Invalid username or password.");
             return View("Login");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()

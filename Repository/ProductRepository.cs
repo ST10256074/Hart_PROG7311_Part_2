@@ -25,7 +25,35 @@ namespace Hart_PROG7311_Part_2.Repository
             List<ProductModel> products = db.Products.ToList();
             return products;
         }
+        public ProductModel FetchProductByID(int id)
+        {
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                ProductModel product = (ProductModel)db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
+                return product;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
 
+        public List<ProductModel> FetchProductsByFarmerID(int id)
+        {
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                List<ProductModel> products = (List<ProductModel>)db.Products.Where(e => e.FarmerId == id).ToList();
+                return products;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
         public void Create(ProductModel p)
         {
             try
@@ -51,21 +79,6 @@ namespace Hart_PROG7311_Part_2.Repository
             catch (Exception e)
             {
                 Console.WriteLine(e);
-            }
-        }
-
-        public ProductModel FetchProductByID(int id)
-        {
-            try
-            {
-                using AppDbContext db = new AppDbContext();
-                ProductModel product = (ProductModel)db.Products.Where(e => e.ProductModelID == id).FirstOrDefault();
-                return product;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
             }
         }
 

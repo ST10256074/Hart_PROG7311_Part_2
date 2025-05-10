@@ -71,5 +71,19 @@ namespace Hart_PROG7311_Part_2.Repository
                 Console.WriteLine(e);
             }
         }
+        public void Update(FarmerModel f)
+        {
+
+            try
+            {
+                using AppDbContext db = new AppDbContext();
+                db.Farmers.Update(f);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
     }
 }

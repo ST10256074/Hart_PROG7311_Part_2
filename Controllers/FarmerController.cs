@@ -7,22 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hart_PROG7311_Part_2.Data;
 using Hart_PROG7311_Part_2.Models;
+using Hart_PROG7311_Part_2.Repository;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
     public class FarmerController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public FarmerController(AppDbContext context)
-        {
-            _context = context;
-        }
+        FarmerRepository fr = new FarmerRepository();
 
         // GET: Farmer
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Farmers.ToListAsync());
+            List<FarmerModel> farmers = fr.GetAll();
+            return View(farmers);
         }
 
         // GET: Farmer/Details/5
@@ -33,8 +30,7 @@ namespace Hart_PROG7311_Part_2.Controllers
                 return NotFound();
             }
 
-            var farmerModel = await _context.Farmers
-                .FirstOrDefaultAsync(m => m.FarmerModelID == id);
+            var farmerModel = fr.Get((int)id);
             if (farmerModel == null)
             {
                 return NotFound();
@@ -58,8 +54,7 @@ namespace Hart_PROG7311_Part_2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(farmerModel);
-                await _context.SaveChangesAsync();
+                fr.Post(farmerModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(farmerModel);
@@ -73,7 +68,7 @@ namespace Hart_PROG7311_Part_2.Controllers
                 return NotFound();
             }
 
-            var farmerModel = await _context.Farmers.FindAsync(id);
+            var farmerModel = fr.Get((int)id);
             if (farmerModel == null)
             {
                 return NotFound();
@@ -95,22 +90,7 @@ namespace Hart_PROG7311_Part_2.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(farmerModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FarmerModelExists(farmerModel.FarmerModelID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                fr.Update(farmerModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(farmerModel);
@@ -124,34 +104,9 @@ namespace Hart_PROG7311_Part_2.Controllers
                 return NotFound();
             }
 
-            var farmerModel = await _context.Farmers
-                .FirstOrDefaultAsync(m => m.FarmerModelID == id);
-            if (farmerModel == null)
-            {
-                return NotFound();
-            }
+            fr.Delete((int)id);
 
-            return View(farmerModel);
-        }
-
-        // POST: Farmer/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var farmerModel = await _context.Farmers.FindAsync(id);
-            if (farmerModel != null)
-            {
-                _context.Farmers.Remove(farmerModel);
-            }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool FarmerModelExists(int id)
-        {
-            return _context.Farmers.Any(e => e.FarmerModelID == id);
         }
     }
 }
