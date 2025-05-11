@@ -14,6 +14,8 @@ namespace Hart_PROG7311_Part_2.Models
         public string Category { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         public float Price { get; set; }
         public float Volume { get; set; }
         public DateTime ListedAt { get; set; }

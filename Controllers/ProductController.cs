@@ -2,6 +2,7 @@
 using Hart_PROG7311_Part_2.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
@@ -83,6 +84,18 @@ namespace Hart_PROG7311_Part_2.Controllers
         {
             try
             {
+                if (p.ImageFile != null)
+                {
+                    string path =  Path.Combine(Directory.GetCurrentDirectory(),"wwwroot", "ProductImages", p.ImageFile.FileName);
+                    using (Stream stream = new FileStream(path, FileMode.Create))
+                    {
+                        p.ImageFile.CopyTo(stream);
+                    }
+                    p.Image = "ProductImages/" + p.ImageFile.FileName;
+
+                    // turn into forward slashes
+
+                }
                 pr.Create(p);
                 if (HttpContext.Session.GetString("UserType") == "Employee")
                 {

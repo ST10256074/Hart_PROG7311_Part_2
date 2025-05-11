@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel> 
+﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel>
 
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
     FarmerModel farmer = null;
     ViewData["Title"] = "View";
-    if (ViewData["Farmer"]!=null)
+    if (ViewData["Farmer"] != null)
     {
         farmer = ViewData["Farmer"] as Hart_PROG7311_Part_2.Models.FarmerModel;
     }
@@ -19,9 +19,9 @@
     <div class="row">
         <!-- Left Side - Profile Details -->
         <div class="col-md-4">
-            <div class="card profile-card"> 
-                <div class="card-body text-center"> 
-                    <img src="@farmer.ProfilePicture" alt="Profile Image" class="rounded-circle profile-image mb-3">
+            <div class="card profile-card">
+                <div class="card-body text-center">
+                    <img src="/@farmer.ProfilePicture" alt="Profile Image" class="rounded-circle profile-image mb-3">
                     <h3>@farmer.Username</h3>
                     <p class="text-muted">@farmer.Address>
                     <p class="profile-bio">@farmer.PhoneNumber</p>
@@ -63,7 +63,7 @@
                     {
                         <div class="col-md-4 mb-4">
                             <div class="card product-card">
-                                <img src="@product.Image" class="card-img-top product-image" alt="@product.Name">
+                                <img src="../@product.Image" class="card-img-top product-image" alt="@product.Name">
                                 <div class="card-body">
                                     <h5 class="card-title">@product.Name</h5>
                                     <p class="card-text text-muted">@product.Category</p>
@@ -72,7 +72,19 @@
                                     </div>
                                 </div>
                                 <div class="card-footer bg-white">
-                                    <button class="btn btn-sm btn-outline-primary btn-block">View Details</button>
+                                    <a class="btn btn-sm btn-outline-primary btn-block" asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductModelID">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("UserType") == "Farmer")
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <div class="card-body">
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <a class="btn btn-sm btn-outline-primary btn-block" href="@Url.Action("Create", "Product")">New Product</a>
                                 </div>
                             </div>
                         </div>
@@ -109,4 +121,4 @@
             }
         });
     </script>
-}
+ }

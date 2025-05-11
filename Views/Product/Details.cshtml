@@ -9,20 +9,10 @@
 
 <div class="container mt-5">
     <div class="row">
-        @if(File.Exists(Model.Image))
-        {
             <!-- Product Image -->
             <div class="col-md-6">
-                <img src="@Model?.Image" alt="@Model?.Name" class="img-fluid rounded product-image" />
+                <img src="/@Model?.Image" alt="@Model?.Name" class="img-fluid rounded product-image" />
             </div>
-        }
-        else
-        {
-            <div class="col-md-6" style="text-align:center;border-radius: 20px;">
-                <img src="" alt="Empty" class="img-fluid rounded product-image" />
-            </div>
-        }
-
         
         <!-- Product Details -->
         <div class="col-md-6">
