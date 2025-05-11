@@ -11,6 +11,7 @@ namespace Hart_PROG7311_Part_2.Controllers
     public class ProductController : Controller
     {
         ProductRepository pr = new ProductRepository();
+        FarmerRepository fr = new FarmerRepository();
 
         [HttpGet]
         public ActionResult Index()
@@ -49,10 +50,12 @@ namespace Hart_PROG7311_Part_2.Controllers
             {
                 Console.WriteLine(ex);
             }
+            ViewData["Farmer"] = fr.Get(id);
             return View(products);
         }
 
         // GET: ProductController/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             ProductModel model = new ProductModel();

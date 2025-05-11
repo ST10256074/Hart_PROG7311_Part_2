@@ -1,82 +1,59 @@
 ﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel>
 
 @{
-    var claims = this.ViewContext.HttpContext.User.Claims.ToList();
+    // var claims = this.ViewContext.HttpContext.User.Claims.ToList();
 
     ViewData["Title"] = "View";
 }
+                @*         @Html.ActionLink("Edit", "Edit", new { id = item.ProductModelID }) | *@
+                @* @Html.ActionLink("Details", "Details", new { id = item.ProductModelID }) | *@
+                @*         @Html.ActionLink("Delete", "Delete", new { id = item.ProductModelID }) *@
 
-<h1>Products</h1>
+<div class="products-header">
+    <h4>Products for Sale</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FarmerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null){
+    <!-- Filters -->
+    <div class="product-filters mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <select class="form-control" id="sortBy">
+                    <option value="date">Sort by: Newest</option>
+                    <option value="price_asc">Price: Low to High</option>
+                    <option value="price_desc">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Search products..." id="productSearch">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-secondary btn-block" id="applyFilters">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FarmerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Volume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductModelID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductModelID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductModelID })
-            </td>
-        </tr>
-            }
+<!-- Product Grid -->
+<div class="product-grid">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card product-card">
+                    <img src="@product.Image" class="card-img-top product-image" alt="@product.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted">@product.Category</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">$@product.Price.ToString("N2")</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a class="btn btn-sm btn-outline-primary btn-block" asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductModelID" >View Details</a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+        </div>

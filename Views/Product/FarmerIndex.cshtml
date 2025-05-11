@@ -1,83 +1,112 @@
-﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel>
+﻿@model IEnumerable<Hart_PROG7311_Part_2.Models.ProductModel> 
+
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    var claims = this.ViewContext.HttpContext.User.Claims.ToList();
-
+    FarmerModel farmer = null;
     ViewData["Title"] = "View";
+    if (ViewData["Farmer"]!=null)
+    {
+        farmer = ViewData["Farmer"] as Hart_PROG7311_Part_2.Models.FarmerModel;
+    }
+    else
+    {
+        farmer = new FarmerModel();
+    }
 }
 
-<h1>FarmerProduct @HttpContextAccessor.HttpContext.Session.GetInt32("ID")</h1>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Side - Profile Details -->
+        <div class="col-md-4">
+            <div class="card profile-card"> 
+                <div class="card-body text-center"> 
+                    <img src="@farmer.ProfilePicture" alt="Profile Image" class="rounded-circle profile-image mb-3">
+                    <h3>@farmer.Username</h3>
+                    <p class="text-muted">@farmer.Address>
+                    <p class="profile-bio">@farmer.PhoneNumber</p>
+                    <p class="text-muted">@farmer.CreateedAt>
+                </div>
+            </div>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FarmerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null){
+        <!-- Right Side - Products -->
+        <div class="col-md-8">
+            <div class="products-header">
+                <h4>Products for Sale</h4>
 
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FarmerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Volume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductModelID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductModelID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductModelID })
-            </td>
-        </tr>
+                <!-- Filters -->
+                <div class="product-filters mb-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select class="form-control" id="sortBy">
+                                <option value="date">Sort by: Newest</option>
+                                <option value="price_asc">Price: Low to High</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Search products..." id="productSearch">
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-secondary btn-block" id="applyFilters">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid">
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="@product.Image" class="card-img-top product-image" alt="@product.Name">
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text text-muted">@product.Category</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="price">$@product.Price.ToString("N2")</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <button class="btn btn-sm btn-outline-primary btn-block">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Filter functionality
+            $('#applyFilters').click(function() {
+                const sortBy = $('#sortBy').val();
+                const category = $('#categoryFilter').val();
+                const searchTerm = $('#productSearch').val();
+
+                // You would typically make an AJAX call here or redirect with query parameters
+                window.location.href = `@Url.Action("Profile")?sortBy=${sortBy}&category=${category}&search=${encodeURIComponent(searchTerm)}`;
+            });
+
+            // Initialize filters from query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('sortBy')) {
+                $('#sortBy').val(urlParams.get('sortBy'));
             }
-        }
-    </tbody>
-</table>
+            if (urlParams.has('category')) {
+                $('#categoryFilter').val(urlParams.get('category'));
+            }
+            if (urlParams.has('search')) {
+                $('#productSearch').val(urlParams.get('search'));
+            }
+        });
+    </script>
+}

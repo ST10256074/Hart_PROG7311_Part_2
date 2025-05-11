@@ -23,6 +23,7 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         // GET: Farmer/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,6 +62,7 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         // GET: Farmer/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
