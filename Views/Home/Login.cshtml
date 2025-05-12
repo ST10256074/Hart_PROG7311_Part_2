@@ -1,31 +1,56 @@
 ﻿@model Hart_PROG7311_Part_2.Models.LoginModel
-
 @{
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
-
-<h4>LoginModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="LoginUser">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card auth-card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h2 class="text-center mb-0">Login</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="LoginUser">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Username" class="control-label"></label>
+                            <div class="input-group">
+                                <input asp-for="Username" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <div class="input-group">
+                                <input asp-for="Password" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+                        
+@*                         <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div> *@
+                        
+                        <div class="form-group" style="margin-top: 20px;text-align: center;">
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                        </div>
+                    </form>
+@*                     
+                    <div class="text-center mt-3">
+                        <a href="/forgot-password" class="text-muted">Forgot your password?</a>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">Don't have an account? <a href="/register">Register here</a></p>
+                </div> *@
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
