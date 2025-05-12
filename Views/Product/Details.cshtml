@@ -1,5 +1,5 @@
 ﻿@model Hart_PROG7311_Part_2.Models.ProductModel
-
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     // ViewData["Title"] = "Details";
 }
@@ -41,7 +41,9 @@
     </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductModelID">Edit</a> |
+    @if(HttpContextAccessor.HttpContext.Session.GetString("UserType") == "Farmer"){
+        <a asp-action="Edit" asp-route-id="@Model?.ProductModelID">Edit</a>
+    }
     <a asp-action="RedirectToIndex">Back to List</a>
 </div>
 <style>
