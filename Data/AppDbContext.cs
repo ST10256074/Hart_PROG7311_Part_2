@@ -16,11 +16,9 @@ namespace Hart_PROG7311_Part_2.Data
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            ////DbContextOptionsBuilder optionsBuilder1 = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(
                 @"Server=(localdb)\MSSQLLocalDB;Database=Hart_PROG7311_Part_2_Database;Trusted_Connection=True"
             );
-
         }
         public AppDbContext()
         {
