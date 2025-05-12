@@ -48,10 +48,6 @@
                         <div class="col-md-3">
                             <select class="form-control" id="categoryFilter">
                                 <option value="all">All Categories</option>
-@*                                 @foreach (var category in Model.Categories)
-                                {
-                                    <option value="@category.Value">@category.Text</option>
-                                } *@
                                 <option value="Liquid">Liquid</option>
                                 <option value="Tools">Tools</option>
                                 <option value="Produce">Produce</option>
@@ -113,8 +109,6 @@
                 const sortBy = $('#sortBy').val();
                 const category = $('#categoryFilter').val();
                 const searchTerm = $('#productSearch').val();
-
-                // You would typically make an AJAX call here or redirect with query parameters
 
                 window.location.href = `@Url.Action("FarmerIndex")?sortBy=${sortBy}&category=${category}`;
             });

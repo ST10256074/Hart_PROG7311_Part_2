@@ -123,10 +123,8 @@ namespace Hart_PROG7311_Part_2.Controllers
                         p.ImageFile.CopyTo(stream);
                     }
                     p.Image = "ProductImages/" + p.ImageFile.FileName;
-
-                    // turn into forward slashes
-
                 }
+                p.ListedAt = DateTime.Now;
                 pr.Create(p);
                 if (HttpContext.Session.GetString("UserType") == "Employee")
                 {
