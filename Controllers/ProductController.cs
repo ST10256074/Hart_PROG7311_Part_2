@@ -57,6 +57,20 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View(products);
         }
 
+        public ActionResult RedirectToIndex()
+        {
+            if (HttpContext.Session.GetString("UserType") == "Employee")
+            {
+                // If employee
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                // If farmer
+                return RedirectToAction(nameof(FarmerIndex));
+            }
+        }
+
         private List<ProductModel> FilteredProducts(List<ProductModel> products, string sortBy, string category)
         {
             // Assuming sent from home page

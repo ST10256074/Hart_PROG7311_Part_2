@@ -22,7 +22,8 @@
             <div class="card profile-card">
                 <div class="card-body text-center">
                     <img src="/@farmer.ProfilePicture" alt="Profile Image" class="rounded-circle profile-image mb-3">
-                    <h3>@farmer.Username</h3>
+                    <h3>@farmer.Name</h3>
+                    <p>@farmer.Username</p>
                     <p class="text-muted">@farmer.Address>
                     <p class="profile-bio">@farmer.PhoneNumber</p>
                     <p class="text-muted">@farmer.CreateedAt>
@@ -74,7 +75,7 @@
                                     <h5 class="card-title">@product.Name</h5>
                                     <p class="card-text text-muted">@product.Category</p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="price">$@product.Price.ToString("N2")</span>
+                                        <span class="price">R @product.Price.ToString("N2")</span>
                                     </div>
                                 </div>
                                 <div class="card-footer bg-white">

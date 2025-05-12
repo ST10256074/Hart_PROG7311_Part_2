@@ -20,7 +20,7 @@
             <p class="text-muted">@Model?.Category</p>
             
             <div class="mb-3">
-                <span class="h4">@Model?.Price.ToString("C")</span>
+                <span class="h4">R @Model?.Price.ToString("N2")</span>
                 <span class="text-muted"> / @Model?.Volume.ToString("0.##") unit(s)</span>
             </div>
             
@@ -42,7 +42,7 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ProductModelID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="RedirectToIndex">Back to List</a>
 </div>
 <style>
     .product-image {
