@@ -15,12 +15,13 @@ namespace Hart_PROG7311_Part_2.Controllers
         FarmerRepository fr = new FarmerRepository();
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string sortBy, string category)
         {
             List<ProductModel> products = new List<ProductModel>();
             try
             {
                 products = pr.FetchProducts();
+                products = FilteredProducts(products, sortBy, category);
             }
             catch (Exception ex)
             {
@@ -30,7 +31,7 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         [HttpGet]
-        public ActionResult FarmerIndex(int id)
+        public ActionResult FarmerIndex(int id, string sortBy, string category)
         {
             List<ProductModel> products = new List<ProductModel>();
             try
@@ -46,6 +47,7 @@ namespace Hart_PROG7311_Part_2.Controllers
                     id = (int) HttpContext.Session.GetInt32("ID");
                 }
                 products = pr.FetchProductsByFarmerID((int) id);
+                products = FilteredProducts(products, sortBy, category);
             }
             catch (Exception ex)
             {
@@ -54,6 +56,35 @@ namespace Hart_PROG7311_Part_2.Controllers
             ViewData["Farmer"] = fr.Get(id);
             return View(products);
         }
+
+        private List<ProductModel> FilteredProducts(List<ProductModel> products, string sortBy, string category)
+        {
+            // Assuming sent from home page
+            if (sortBy == null && category == null)
+            {
+                sortBy = "date";
+                category = "all";
+            }
+            var filteredProducts = category == "all" ? products : products.Where(p => p.Category == category);
+            //Apply sorting
+
+            switch (sortBy)
+            {
+                case "price_asc":
+                    filteredProducts = filteredProducts.OrderBy(p => p.Price).ToList();
+                    break;
+                case "price_desc":
+                    filteredProducts = filteredProducts.OrderByDescending(p => p.Price).ToList();
+                    break;
+                case "date":
+                default:
+                    filteredProducts = filteredProducts.OrderByDescending(p => p.CreatedAt).ToList();
+                    break;
+            }
+            // Filter by last week, last month, last year
+            return (List<ProductModel>)filteredProducts;
+        }
+
 
         // GET: ProductController/Details/5
         [HttpGet]

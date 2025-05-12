@@ -24,7 +24,15 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" placeholder="Search products..." id="productSearch">
+                <select class="form-control" id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    @*                                 @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.Value">@category.Text</option>
+                                } *@
+                    <option value="Food">Food</option>
+                    <option value="Drink">Drink</option>
+                </select>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-outline-secondary btn-block" id="applyFilters">Apply</button>
@@ -40,7 +48,7 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="card product-card">
-                    <img src="../@product.Image" class="card-img-top product-image" alt="@product.Name">
+                    <img src="/@product.Image" class="card-img-top product-image" alt="@product.Name">
                     <div class="card-body">
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text text-muted">@product.Category</p>
@@ -56,4 +64,32 @@
         }
     </div>
 </div>
-        </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Filter functionality
+            $('#applyFilters').click(function() {
+                const sortBy = $('#sortBy').val();
+                const category = $('#categoryFilter').val();
+                const searchTerm = $('#productSearch').val();
+
+                // You would typically make an AJAX call here or redirect with query parameters
+
+                window.location.href = `@Url.Action("Index")?sortBy=${sortBy}&category=${category}`;
+            });
+
+            // Initialize filters from query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('sortBy')) {
+                $('#sortBy').val(urlParams.get('sortBy'));
+            }
+            if (urlParams.has('category')) {
+                $('#categoryFilter').val(urlParams.get('category'));
+            }
+            if (urlParams.has('search')) {
+                $('#productSearch').val(urlParams.get('search'));
+            }
+        });
+    </script>
+}
