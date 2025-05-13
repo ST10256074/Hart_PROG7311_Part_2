@@ -3,20 +3,20 @@
 @{
     ViewData["Title"] = "View";
 }
-<div class="products-header">
-    <h4>Products for Sale</h4>
+<div class="products-header text-success d-flex justify-content-between align-items-center mb-4">
+    <h1>Product</h1>
 
     <!-- Filters -->
-    <div class="product-filters mb-4">
-        <div class="row">
-            <div class="col-md-3">
+    <div class="product-filters ">
+        <div class="row" style="width: 110%;margin-left: -10%;">
+            <div class="col-md-3-w">
                 <select class="form-control" id="sortBy">
                     <option value="date">Sort by: Newest</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3-w">
                 <select class="form-control" id="categoryFilter">
                     <option value="all">All Categories</option>
                     <option value="Liquid">Liquid</option>
@@ -26,7 +26,7 @@
                     <option value="Livestock">Livestock</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div style="width: 20%;">
                 <button class="btn btn-outline-secondary btn-block" id="applyFilters">Apply</button>
             </div>
         </div>
