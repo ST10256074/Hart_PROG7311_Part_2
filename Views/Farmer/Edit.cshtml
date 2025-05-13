@@ -13,7 +13,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8 mx-auto">
-                    <form asp-action="Edit" class="needs-validation" novalidate>
+                    <form asp-action="Edit" class="needs-validation" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
                         <input type="hidden" asp-for="FarmerModelID" />
                         
@@ -61,7 +61,7 @@
                                         @* <label asp-for="ProfilePictureFile" class="control-label"></label> *@
                                         <input asp-for="ProfilePictureFile" id="ProfilePictureFile" name="ProfilePictureFile" accept="image/*" type="file" class="form-control" />
                                     </div>
-                                    <span asp-validation-for="ProfilePictureFile" class="text-danger"></span>
+                                    @* <span asp-validation-for="ProfilePictureFile" class="text-danger"></span> *@
                                     <input hidden="hidden" asp-for="ProfilePicture" value="@Model.ProfilePicture" class="form-control" />
                                     <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                                 </div>
@@ -107,7 +107,7 @@
         </div>
     </div>
 </div>
-
+@* 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
@@ -137,7 +137,7 @@
             })();
         });
     </script>
-}
+} *@
 
     <style>
         .card {

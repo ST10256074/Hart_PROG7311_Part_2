@@ -93,19 +93,24 @@ namespace Hart_PROG7311_Part_2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FarmerModelID,Name,Username,Password,Address,ProfilePicture,PhoneNumber,CreateedAt")] FarmerModel farmerModel)
+        public async Task<IActionResult> Edit(int id, FarmerModel farmerModel)
         {
             if (id != farmerModel.FarmerModelID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (farmerModel.ProfilePictureFile != null)
             {
-                fr.Update(farmerModel);
-                return RedirectToAction(nameof(Index));
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProfileImages", farmerModel.ProfilePictureFile.FileName);
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    farmerModel.ProfilePictureFile.CopyTo(stream);
+                }
+                farmerModel.ProfilePicture = "ProfileImages/" + farmerModel.ProfilePictureFile.FileName;
             }
-            return View(farmerModel);
+            fr.Update(farmerModel);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Farmer/Delete/5
