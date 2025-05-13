@@ -45,7 +45,7 @@
                                     <label class="font-weight-bold d-block">Profile Picture</label>
                                     @if (!string.IsNullOrEmpty(Model.ProfilePicture))
                                     {
-                                        <img src="@Model.ProfilePicture" alt="Current Profile" class="img-thumbnail mb-3" style="max-width: 200px; max-height: 200px;">
+                                        <img src="/@Model.ProfilePicture" alt="Current Profile" class="img-thumbnail mb-3" style="max-width: 200px; max-height: 200px;">
                                     }
                                     else
                                     {
@@ -107,36 +107,6 @@
         </div>
     </div>
 </div>
-@* 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
-    <script>
-        $(document).ready(function() {          
-            // Show filename in file input
-            $('.custom-file-input').on('change', function() {
-                var fileName = $(this).val().split('\\').pop();
-                $(this).next('.custom-file-label').html(fileName);
-            });
-            
-            // Client-side validation
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    var forms = document.getElementsByClassName('needs-validation');
-                    var validation = Array.prototype.filter.call(forms, function(form) {
-                        form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        });
-    </script>
-} *@
 
     <style>
         .card {
