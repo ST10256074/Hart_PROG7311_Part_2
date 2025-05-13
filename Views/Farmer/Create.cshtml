@@ -1,65 +1,106 @@
 ﻿@model Hart_PROG7311_Part_2.Models.FarmerModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Register New Farmer";
 }
 
-<h1>Create</h1>
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0"><i class="fas fa-user-plus mr-2"></i>Register New Farmer</h2>
+        </div>
 
-<h4>FarmerModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <form asp-action="Create" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Name" class="font-weight-bold">Full Name</label>
+                                    <input asp-for="Name" class="form-control" required />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Username" class="font-weight-bold">Username</label>
+                                    <input asp-for="Username" class="form-control" required />
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Password" class="font-weight-bold">Password</label>
+                                    <div class="input-group">
+                                        <input asp-for="Password" type="password" class="form-control" required />
+                                        <div class="input-group-append">
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group text-center">
+                                    <label class="font-weight-bold d-block">Profile Picture</label>
+                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px; margin: 0 auto;">
+                                        <i class="fas fa-user fa-3x text-muted"></i>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input asp-for="ProfilePictureFile" id="ProfilePictureFile" name="ProfilePictureFile" accept="image/*" type="file" class="custom-file-input" />
+                                        <label class="custom-file-label" for="ProfilePictureFile">Choose profile image</label>
+                                    </div>
+                                    <small class="form-text text-muted">Recommended size: 300x300 pixels</small>
+                                    <span asp-validation-for="ProfilePictureFile" class="text-danger"></span>
+                                </div>
+                                <input hidden="hidden" asp-for="ProfilePicture" value="." />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address" class="font-weight-bold">Address</label>
+                            <input asp-for="Address" class="form-control" required />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber" class="font-weight-bold">Phone Number</label>
+                                    <div class="input-group">
+                                        <input asp-for="PhoneNumber" class="form-control" required />
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateedAt" class="font-weight-bold">Registration Date</label>
+                                    <input asp-for="CreateedAt" type="date" class="form-control" required />
+                                    <span asp-validation-for="CreateedAt" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg mr-3">
+                                <i class="fas fa-save mr-2"></i>Register Farmer
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left mr-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            @*Saving the file then saving to the Image String of the Location*@
-            <div class="form-group">
-                <label asp-for="ProfilePictureFile" class="control-label"></label>
-                <input asp-for="ProfilePictureFile" id="ProfilePictureFile" name="ProfilePictureFile" accept="image/*" type="file" class="form-control" />
-                <span asp-validation-for="ProfilePictureFile" class="text-danger"></span>
-            </div>
-            <input hidden="hidden" asp-for="ProfilePicture" value="." class="form-control" />
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateedAt" class="control-label"></label>
-                <input asp-for="CreateedAt" class="form-control" />
-                <span asp-validation-for="CreateedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 }
