@@ -2,81 +2,159 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add New Product";
 }
 
-<h1>Create</h1>
+<div class="container py-4">
+    <div class="card shadow-sm">
 
-<h4>ProductModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateProduct" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input hidden="hidden" asp-for="FarmerId" value="@HttpContextAccessor.HttpContext.Session.GetInt32("ID")" class="form-control" />
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card-header bg-success text-white" style="margin-bottom:1%">
+                        <h2 class="mb-0"><i class="fas fa-plus-circle mr-2"></i>Add New Product</h2>
+                    </div>
+                    <form asp-action="CreateProduct" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <input hidden="hidden" asp-for="FarmerId" value="@HttpContextAccessor.HttpContext.Session.GetInt32("ID")" />
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="font-weight-bold">Product Name</label>
+                            <input asp-for="Name" class="form-control" required />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Category" class="font-weight-bold">Category</label>
+                            <select class="form-control" id="Category" asp-for="Category" required>
+                                <option value="">Select a category</option>
+                                <option value="Liquid">Liquid</option>
+                                <option value="Tools">Tools</option>
+                                <option value="Produce">Produce</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Livestock">Livestock</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="font-weight-bold">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImageFile" class="font-weight-bold">Product Image</label>
+                            <div class="custom-file">
+                                <input asp-for="ImageFile" id="ImageFile" name="ImageFile" accept="image/*" type="file" class="custom-file-input" required>
+                                @* <label class="custom-file-label" for="ImageFile">Choose file...</label> *@
+                            </div>
+                            <small class="form-text text-muted">Upload a clear image of your product (JPEG, PNG)</small>
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <input hidden="hidden" asp-for="Image" value="." />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Price" class="font-weight-bold">Price (ZAR)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R</span>
+                                        </div>
+                                        <input asp-for="Price" class="form-control" required />
+                                    </div>
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Volume" class="font-weight-bold">Quantity/Volume</label>
+                                    <input asp-for="Volume" class="form-control" required />
+                                    <span asp-validation-for="Volume" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CreatedAt" class="font-weight-bold">Date Created</label>
+                            <input asp-for="CreatedAt" class="form-control" type="date" required />
+                            <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                        </div>
+                        <input hidden="hidden" asp-for="ListedAt" />
+
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg mr-3">
+                                <i class="fas fa-save mr-2"></i>Create Product
+                            </button>
+                            <a asp-action="RedirectToIndex" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left mr-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <select class="form-control" id="Category" asp-for="Category">
-                    <option value=""></option>
-                    <option value="Liquid">Liquid</option>
-                    <option value="Tools">Tools</option>
-                    <option value="Produce">Produce</option>
-                    <option value="Technolodgy">Technolodgy</option>
-                    <option value="Livestock">Livestock</option>
-                </select>
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            @*Saving the file then saving to the Image String of the Location*@
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label">Image</label>
-                <input asp-for="ImageFile" id="ImageFile" name="ImageFile" accept="image/*" type="file" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-                <input hidden="hidden" asp-for="Image" value="." class="form-control" />
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volume" class="control-label"></label>
-                <input asp-for="Volume" class="form-control" />
-                <span asp-validation-for="Volume" class="text-danger"></span>
-            </div>
-@*             <div class="form-group">
-                <label asp-for="ListedAt" class="control-label"></label>
-                <input asp-for="ListedAt" class="form-control" />
-                <span asp-validation-for="ListedAt" class="text-danger"></span>
-            </div> *@
-            <input hidden="hidden" asp-for="ListedAt"/>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label">Created At</label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-sm btn-outline-primary btn-block asp-action="RedirectToIndex">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Show filename in file input
+            $('.custom-file-input').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+
+            // Client-side validation
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        });
+    </script>
 }
+
+    <style>
+        .card {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .form-control, .custom-file-input {
+            border-radius: 5px;
+        }
+
+        .btn-lg {
+            padding: 0.5rem 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .custom-file-label::after {
+            content: "Browse";
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
