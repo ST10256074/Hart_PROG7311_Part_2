@@ -1,6 +1,7 @@
 using Hart_PROG7311_Part_2.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Buffers.Text;
 using System.Security.Claims;
 
 namespace Hart_PROG7311_Part_2
@@ -27,6 +28,7 @@ namespace Hart_PROG7311_Part_2
 
             var app = builder.Build();
 
+            //rabet, f. (2025, May 11). .NET 6 how to run Migration automatically in program.cs. Retrieved from stack overflow: https://stackoverflow.com/questions/70266442/net-6-how-to-run-migration-automatically-in-program-cs
             using (var scope = app.Services.CreateScope())
             {
                 var db2 = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -50,7 +52,6 @@ namespace Hart_PROG7311_Part_2
             db.SaveChanges();
 
 
-
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -63,6 +64,7 @@ namespace Hart_PROG7311_Part_2
             app.UseStaticFiles();
 
             //Sessions
+            //Halder, K. (2025, May 10).Session based Authorization in ASP.NET Core. Retrieved from Medium: https://medium.com/@KumarHalder/session-based-authorization-in-asp-net-core-95eed1d3dded
             app.UseSession();
 
             app.UseRouting();

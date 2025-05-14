@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using static System.Net.WebRequestMethods;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
+    //Microsoft Learn. (2025, May 10). Routing to controller actions in ASP.NET Core.Retrieved from Microsoft Learn: https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-9.0
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
