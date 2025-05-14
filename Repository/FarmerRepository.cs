@@ -71,6 +71,7 @@ namespace Hart_PROG7311_Part_2.Repository
                 Console.WriteLine(e);
             }
         }
+        // UPDATE api/<ValuesController>/5
         public void Update(FarmerModel f)
         {
 

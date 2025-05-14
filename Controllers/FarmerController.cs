@@ -47,8 +47,6 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         // POST: Farmer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FarmerModel farmerModel)
@@ -89,8 +87,6 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         // POST: Farmer/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, FarmerModel farmerModel)
@@ -113,7 +109,7 @@ namespace Hart_PROG7311_Part_2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Farmer/Delete/5
+        // DELETE: Farmer/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

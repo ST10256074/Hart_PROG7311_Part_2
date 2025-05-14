@@ -6,14 +6,12 @@ using System.Security.Claims;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
-    //[Authorize]
-    //[Authorize(Policy = "Employee")]
-    //[Authorize(Roles = "Employee")]
     public class ProductController : Controller
     {
         ProductRepository pr = new ProductRepository();
         FarmerRepository fr = new FarmerRepository();
 
+        // GET: ProductController/Index
         [HttpGet]
         public ActionResult Index(string sortBy, string category, string startDate, string endDate)
         {
@@ -30,6 +28,7 @@ namespace Hart_PROG7311_Part_2.Controllers
             return View(products);
         }
 
+        // GET: ProductController/FarmerIndex
         [HttpGet]
         public ActionResult FarmerIndex(int id, string sortBy, string category, string startDate, string endDate)
         {
@@ -44,6 +43,7 @@ namespace Hart_PROG7311_Part_2.Controllers
                 }
                 else
                 {
+                    // If farmer
                     id = (int) HttpContext.Session.GetInt32("ID");
                 }
                 products = pr.FetchProductsByFarmerID((int) id);
@@ -56,9 +56,10 @@ namespace Hart_PROG7311_Part_2.Controllers
             ViewData["Farmer"] = fr.Get(id);
             return View(products);
         }
-
+        // GET: ProductController/FarmerIndex
         public ActionResult RedirectToIndex()
         {
+            // When returning, return to appropriate page
             if (HttpContext.Session.GetString("UserType") == "Employee")
             {
                 // If employee
@@ -115,7 +116,6 @@ namespace Hart_PROG7311_Part_2.Controllers
 
             return (List<ProductModel>)filteredProducts;
         }
-
 
         // GET: ProductController/Details/5
         [HttpGet]

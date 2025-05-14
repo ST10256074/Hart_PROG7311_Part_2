@@ -6,15 +6,14 @@ namespace Hart_PROG7311_Part_2.Repository
 {
     public class ProductRepository
     {
-        // get connecio string
-        //public static string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Hart_PROG7311_Part_2_Database;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-        //public SqlConnection con = new SqlConnection(ConnectionString);
+        // GET: api/<ValuesController>/
         public List<ProductModel> FetchProducts()
         {
             using AppDbContext db = new AppDbContext();
             List<ProductModel> products = db.Products.ToList();
             return products;
         }
+        // GET: api/<ValuesController>/id
         public ProductModel FetchProductByID(int id)
         {
             try
@@ -29,7 +28,7 @@ namespace Hart_PROG7311_Part_2.Repository
                 return null;
             }
         }
-
+        // GET: api/<ValuesController>/id
         public List<ProductModel> FetchProductsByFarmerID(int id)
         {
             try
@@ -44,6 +43,7 @@ namespace Hart_PROG7311_Part_2.Repository
                 return null;
             }
         }
+        // CREATE: api/<ValuesController>/product
         public void Create(ProductModel p)
         {
             try
@@ -57,7 +57,7 @@ namespace Hart_PROG7311_Part_2.Repository
                 Console.WriteLine(e);
             }
         }
-
+        // UPDATE: api/<ValuesController>/product
         public void Update(ProductModel p) {
 
             try
@@ -71,7 +71,7 @@ namespace Hart_PROG7311_Part_2.Repository
                 Console.WriteLine(e);
             }
         }
-
+        // DELETE api/<ValuesController>/5
         public void Delete(int id)
         {
             try

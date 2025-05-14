@@ -19,18 +19,19 @@ namespace Hart_PROG7311_Part_2.Controllers
         {
             _logger = logger;
         }
-
+        // GET: Home
         public IActionResult Index()
         {
             return View();
         }
-
+        // GET: Home/Index
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        // POST: Home/Login
         public async Task<IActionResult> LoginUser(LoginModel l)
         {
             // Using the EmployeeRepository to check if the user exists
@@ -55,13 +56,13 @@ namespace Hart_PROG7311_Part_2.Controllers
             ModelState.AddModelError("", "Invalid username or password.");
             return View("Login");
         }
-
+        // GET: Home/Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
+        // GET: Home/Privacy
         public IActionResult Privacy()
         {
             return View();
