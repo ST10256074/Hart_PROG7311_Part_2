@@ -15,13 +15,13 @@ namespace Hart_PROG7311_Part_2.Controllers
         FarmerRepository fr = new FarmerRepository();
 
         [HttpGet]
-        public ActionResult Index(string sortBy, string category)
+        public ActionResult Index(string sortBy, string category, string startDate, string endDate)
         {
             List<ProductModel> products = new List<ProductModel>();
             try
             {
                 products = pr.FetchProducts();
-                products = FilteredProducts(products, sortBy, category);
+                products = FilteredProducts(products, sortBy, category, startDate, endDate);
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace Hart_PROG7311_Part_2.Controllers
         }
 
         [HttpGet]
-        public ActionResult FarmerIndex(int id, string sortBy, string category)
+        public ActionResult FarmerIndex(int id, string sortBy, string category, string startDate, string endDate)
         {
             List<ProductModel> products = new List<ProductModel>();
             try
@@ -47,7 +47,7 @@ namespace Hart_PROG7311_Part_2.Controllers
                     id = (int) HttpContext.Session.GetInt32("ID");
                 }
                 products = pr.FetchProductsByFarmerID((int) id);
-                products = FilteredProducts(products, sortBy, category);
+                products = FilteredProducts(products, sortBy, category, startDate, endDate);
             }
             catch (Exception ex)
             {
@@ -71,7 +71,16 @@ namespace Hart_PROG7311_Part_2.Controllers
             }
         }
 
-        private List<ProductModel> FilteredProducts(List<ProductModel> products, string sortBy, string category)
+        /// <summary>
+        /// Filters the products based on the selected category and sort order.
+        /// </summary>
+        /// <param name="products"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="category"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        private List<ProductModel> FilteredProducts(List<ProductModel> products, string sortBy, string category, string startDate, string endDate)
         {
             // Assuming sent from home page
             if (sortBy == null && category == null)
@@ -79,9 +88,10 @@ namespace Hart_PROG7311_Part_2.Controllers
                 sortBy = "date";
                 category = "all";
             }
+            // Filter by category
             var filteredProducts = category == "all" ? products : products.Where(p => p.Category == category);
+            
             //Apply sorting
-
             switch (sortBy)
             {
                 case "price_asc":
@@ -95,7 +105,14 @@ namespace Hart_PROG7311_Part_2.Controllers
                     filteredProducts = filteredProducts.OrderByDescending(p => p.CreatedAt).ToList();
                     break;
             }
-            // Filter by last week, last month, last year
+            // Filter between start and end date
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+            {
+                DateTime start = DateTime.Parse(startDate);
+                DateTime end = DateTime.Parse(endDate);
+                filteredProducts = filteredProducts.Where(p => p.CreatedAt >= start && p.CreatedAt <= end).ToList();
+            }
+
             return (List<ProductModel>)filteredProducts;
         }
 

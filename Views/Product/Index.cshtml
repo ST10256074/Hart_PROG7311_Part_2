@@ -8,7 +8,7 @@
 
     <!-- Filters -->
     <div class="product-filters ">
-        <div class="row" style="width: 110%;margin-left: -10%;">
+        <div class="row">
             <div class="col-md-3-w">
                 <select class="form-control" id="sortBy">
                     <option value="date">Sort by: Newest</option>
@@ -26,7 +26,23 @@
                     <option value="Livestock">Livestock</option>
                 </select>
             </div>
-            <div style="width: 20%;">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="startDate">From Date</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="startDate" name="startDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="endDate">To Date</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="endDate" name="endDate">
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-3" style="width:100%;margin-top:10px;text-align: center;">
                 <button class="btn btn-outline-secondary btn-block" id="applyFilters">Apply</button>
             </div>
         </div>
@@ -56,7 +72,7 @@
         }
     </div>
 </div>
-</div>
+
 @section Scripts {
     <script>
         $(document).ready(function() {
@@ -64,9 +80,20 @@
             $('#applyFilters').click(function() {
                 const sortBy = $('#sortBy').val();
                 const category = $('#categoryFilter').val();
-                const searchTerm = $('#productSearch').val();
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
 
-                window.location.href = `@Url.Action("Index")?sortBy=${sortBy}&category=${category}`;
+                // Build URL with all parameters
+                let url = `@Url.Action("Index")?sortBy=${sortBy}&category=${category}`;
+
+                if (startDate) {
+                    url += `&startDate=${startDate}`;
+                }
+                if (endDate) {
+                    url += `&endDate=${endDate}`;
+                }
+
+                window.location.href = url;
             });
 
             // Initialize filters from query parameters
@@ -77,8 +104,24 @@
             if (urlParams.has('category')) {
                 $('#categoryFilter').val(urlParams.get('category'));
             }
+            if (urlParams.has('startDate')) {
+                $('#startDate').val(urlParams.get('startDate'));
+            }
+            if (urlParams.has('endDate')) {
+                $('#endDate').val(urlParams.get('endDate'));
+            }
             if (urlParams.has('search')) {
                 $('#productSearch').val(urlParams.get('search'));
+            }
+
+            // Set default date range (last 30 days) if no dates are selected
+            if (!$('#startDate').val() && !$('#endDate').val()) {
+                const endDate = new Date();
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() - 30);
+
+                $('#startDate').val(startDate.toISOString().split('T')[0]);
+                $('#endDate').val(endDate.toISOString().split('T')[0]);
             }
         });
     </script>

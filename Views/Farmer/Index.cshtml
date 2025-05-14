@@ -54,16 +54,16 @@
                                 <td>@item.CreateedAt.ToString("MMM yyyy")</td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
-                                        <a asp-controller="Product" asp-action="FarmerIndex" asp-route-id="@item.FarmerModelID" class="btn btn-primary mx-1" title="View Products">
+                                    <a asp-controller="Product" asp-action="FarmerIndex" asp-route-id="@item.FarmerModelID" class="btn btn-outline-primary mx-1" title="View Products">
                                             <i class="fas fa-box-open mr-1"></i>Products
                                         </a>
-                                        <a asp-action="Edit" asp-route-id="@item.FarmerModelID" class="btn btn-secondary mx-1" title="Edit">
+                                    <a asp-action="Edit" asp-route-id="@item.FarmerModelID" class="btn btn-outline-primary mx-1" title="Edit">
                                             <i class="fas fa-edit mr-1"></i>Edit
                                         </a>
-                                        <a asp-action="Details" asp-route-id="@item.FarmerModelID" class="btn btn-info mx-1" title="Details">
+                                    <a asp-action="Details" asp-route-id="@item.FarmerModelID" class="btn btn-outline-primary mx-1" title="Details">
                                             <i class="fas fa-info-circle mr-1"></i>Details
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@item.FarmerModelID" class="btn btn-danger mx-1" title="Delete">
+                                        <a asp-action="Delete" asp-route-id="@item.FarmerModelID" class="btn btn-outline-danger mx-1" title="Delete">
                                             <i class="fas fa-trash-alt mr-1"></i>Delete
                                         </a>
                                     </div>
