@@ -11,6 +11,7 @@ using Hart_PROG7311_Part_2.Repository;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
+    [SessionAuthorizeAttribute]
     public class FarmerController : Controller
     {
         FarmerRepository fr = new FarmerRepository();

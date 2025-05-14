@@ -6,6 +6,7 @@ using System.Security.Claims;
 
 namespace Hart_PROG7311_Part_2.Controllers
 {
+    [SessionAuthorizeAttribute]
     public class ProductController : Controller
     {
         ProductRepository pr = new ProductRepository();
@@ -13,6 +14,7 @@ namespace Hart_PROG7311_Part_2.Controllers
 
         // GET: ProductController/Index
         [HttpGet]
+        [SessionAuthorizeAttribute]
         public ActionResult Index(string sortBy, string category, string startDate, string endDate)
         {
             List<ProductModel> products = new List<ProductModel>();
