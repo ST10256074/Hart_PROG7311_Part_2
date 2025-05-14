@@ -117,6 +117,7 @@
             // Set default date range (last 30 days) if no dates are selected
             if (!$('#startDate').val() && !$('#endDate').val()) {
                 const endDate = new Date();
+                endDate.setDate(endDate.getDate() + 1);
                 const startDate = new Date();
                 startDate.setDate(startDate.getDate() - 30);
 
