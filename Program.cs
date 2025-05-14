@@ -30,7 +30,14 @@ namespace Hart_PROG7311_Part_2
             var check = db.Employees.ToList();
             if (check.Count == 0)
             {
-                db.Employees.Add(new Models.EmployeeModel("Admin","admin","admin","123 Jackson Street","nowhere","0000000000"));
+                db.Employees.Add(new Models.EmployeeModel("Admin","admin","admin","123 Jackson Street","nowhere","042 245 2265"));
+                db.Farmers.Add(new Models.FarmerModel("Farmer","Farmer","Farmer","123 Farmer Road","no profile pic","031 224 5322",DateTime.Now));
+                db.Farmers.Add(new Models.FarmerModel("Farmer2","Farmer2","Farmer2","123 Farmer Road","no profile pic","031 224 5322",DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Test Product", "Category", "Description", "no image", 0, 0, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Tomatoes", "Produce", "Fresh Tomatoes", "ProductImages/Tomato.jpg", 0, 0, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Potatoes", "Produce", "Fresh Potatoes", "ProductImages/Potato.jpg", 0, 0, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Carrots", "Produce", "Fresh Carrots", "ProductImages/Carrot.jpg", 0, 0, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(2, "Solar Panel", "Solar", "Solar Panel", "ProductImages/SolarPanel.jpg", 0, 0, DateTime.Now, DateTime.Now));
             }
 
             db.SaveChanges();
