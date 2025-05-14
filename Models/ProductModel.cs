@@ -23,6 +23,7 @@ namespace Hart_PROG7311_Part_2.Models
         public DateTime ListedAt { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public ProductModel() { }
         public ProductModel(int FarmerId, string Name, string Category, string Description, string Image, float Price, float Volumne, DateTime ListedAt, DateTime CreatedAt)
         {
             this.FarmerId = FarmerId;

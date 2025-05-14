@@ -25,23 +25,6 @@ namespace Hart_PROG7311_Part_2
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // On Program First Run Seed data into database
-            AppDbContext db = new AppDbContext();
-            var check = db.Employees.ToList();
-            if (check.Count == 0)
-            {
-                db.Employees.Add(new Models.EmployeeModel("Admin","admin","admin","123 Jackson Street","nowhere","042 245 2265"));
-                db.Farmers.Add(new Models.FarmerModel("Farmer","Farmer","Farmer","123 Farmer Road","no profile pic","031 224 5322",DateTime.Now));
-                db.Farmers.Add(new Models.FarmerModel("Farmer2","Farmer2","Farmer2","123 Farmer Road","no profile pic","031 224 5322",DateTime.Now));
-                db.Products.Add(new Models.ProductModel(1, "Test Product", "Category", "Description", "no image", 0, 0, DateTime.Now, DateTime.Now));
-                db.Products.Add(new Models.ProductModel(1, "Tomatoes", "Produce", "Fresh Tomatoes", "ProductImages/Tomato.jpg", 0, 0, DateTime.Now, DateTime.Now));
-                db.Products.Add(new Models.ProductModel(1, "Potatoes", "Produce", "Fresh Potatoes", "ProductImages/Potato.jpg", 0, 0, DateTime.Now, DateTime.Now));
-                db.Products.Add(new Models.ProductModel(1, "Carrots", "Produce", "Fresh Carrots", "ProductImages/Carrot.jpg", 0, 0, DateTime.Now, DateTime.Now));
-                db.Products.Add(new Models.ProductModel(2, "Solar Panel", "Solar", "Solar Panel", "ProductImages/SolarPanel.jpg", 0, 0, DateTime.Now, DateTime.Now));
-            }
-
-            db.SaveChanges();
-
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -49,6 +32,24 @@ namespace Hart_PROG7311_Part_2
                 var db2 = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 db2.Database.Migrate();
             }
+            // On Program First Run Seed data into database
+            AppDbContext db = new AppDbContext();
+            var check = db.Employees.ToList();
+            if (check.Count == 0)
+            {
+                db.Employees.Add(new Models.EmployeeModel("Admin","admin","admin","123 Jackson Street","nowhere","042 245 2265"));
+                db.Farmers.Add(new Models.FarmerModel("Farmer","Farmer","Farmer","123 Farmer Road", "ProfileImages/User2.jpg", "031 224 5322",DateTime.Now));
+                db.Farmers.Add(new Models.FarmerModel("Farmer2","Farmer2","Farmer2","123 Farmer Road","ProfileImages/User.jpg","031 224 5322",DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Test Product", "Category", "Description", "no image", 10, 10, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Tomatoes", "Produce", "Fresh Tomatoes", "ProductImages/Tomato.jpg", 8, 40, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Potatoes", "Produce", "Fresh Potatoes", "ProductImages/Potato.jpg", 50, 60, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(1, "Carrots", "Produce", "Fresh Carrots", "ProductImages/Carrot.jpg", 20, 100, DateTime.Now, DateTime.Now));
+                db.Products.Add(new Models.ProductModel(2, "Solar Panel", "Solar", "Solar Panel", "ProductImages/SolarPanel.jpg", 15000, 20, DateTime.Now, DateTime.Now));
+            }
+
+            db.SaveChanges();
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

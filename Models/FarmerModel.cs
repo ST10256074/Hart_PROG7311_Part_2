@@ -6,6 +6,7 @@ namespace Hart_PROG7311_Part_2.Models
 {
     public class FarmerModel
     {
+        public FarmerModel() { }
         public FarmerModel(string name, string username, string password, string address, string profilePicture, string phoneNumber, DateTime createdAt)
         {
             Name = name;
