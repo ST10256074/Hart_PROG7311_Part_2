@@ -44,6 +44,9 @@ Username: Farmer
 
 Password: Farmer
 
+# Authorization 
+When accessing controllers or methods when not signed in, it will redirect you to the login page.
+
 # Architecture
 Using the MVC design pattern and the Repository design pattern for database access. 
 
