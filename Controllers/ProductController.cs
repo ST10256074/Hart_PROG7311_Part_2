@@ -178,15 +178,22 @@ namespace Hart_PROG7311_Part_2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ProductModel p)
         {
-            try
+            if (id != p.ProductModelID)
             {
-                pr.Update(p);
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            if (p.ImageFile != null)
             {
-                return View();
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductImages", p.ImageFile.FileName);
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    p.ImageFile.CopyTo(stream);
+                }
+                p.Image = "ProductImages/" + p.ImageFile.FileName;
             }
+            pr.Update(p);
+            return RedirectToAction(nameof(RedirectToIndex));
         }
 
         // GET: ProductController/Delete/5
